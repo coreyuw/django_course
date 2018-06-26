@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add a Trip</title>
+    <style>
+        .header h4{
+            display: inline-block;
+        }
+        .header span{
+            margin-left: 500px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <div class="header">
+        <h4>Add a Job</h4>
+        <span><a href="/dashboard">Back</a></span>
+        <a href="/logout">Logout</a>
+    </div>
+    <form action="/update" method="POST">
+        {% csrf_token %}
+        <p>Destination <input type="text" name="destination" value=""></p>
+        <p>Description <input type="text" name="description" value=""></p>
+        <p>Travel Date From <input type="date" name="startdate" value=""></p>
+        <p>Travel Date To <input type="date" name="enddate" value=""></p>
+        <input type="submit">
+    </form>
+</body>
+</html>

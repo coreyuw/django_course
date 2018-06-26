@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>View Job</title>
+    <style>
+        .header h4{
+            display: inline-block;
+        }
+        .header span{
+            margin-left: 500px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <span><a href="/dashboard">Back</a></span>
+        <a href="/logout">Logout</a>
+    </div>
+    <h3>{{ trip.destination }}</h3>
+    <p>Planned By: {{ planner.first_name }} {{ planner.last_name }}</p>
+    <p>Description: {{ trip.description }}</p>
+    <p>Travel Date From: {{ trip.startDate }}</p>
+    <p>Travel Date To: {{ trip.endDate }}</p>
+    </br>
+    <h3>Other Users Joining the Trip:</h3>
+    {% for other_user in other_users %}
+    <p>{{ other_user.first_name }} {{ other_user.last_name }}</p>
+    {% endfor %}
+</body>
+</html>

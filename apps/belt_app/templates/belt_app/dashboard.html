@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
+    <style>
+        .header h4{
+            display: inline-block;
+        }
+        .header span{
+            margin-left: 500px;
+            margin-right: 10px;
+        }
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="header">
+        <h4>Welcome {{ user.first_name }}!</h4>
+        <span><a href="/addtrip">Add a Trip</a></span>
+        <a href="/logout">Logout</a>
+    </div>
+    <h4>Your Trip Schedules</h4>
+    <table>
+        <tr>
+            <th>Destination</th>
+            <th>Travel Start Date</th>
+            <th>Travel End Date</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+        {% for trip in my_trips%}
+        <tr>
+            <th><a href="{%  url 'default:my_view' trip_id=trip.id %}">{{trip.destination}}</a></th>
+            <th>{{trip.startDate}}</th>
+            <th>{{trip.endDate}}</th>
+            <th>{{trip.description}}</th>
+            <th>
+                <a href="{%  url 'default:my_cancel' trip_id=trip.id %}">Cancel</a>
+                {% if trip.planner.id == user.id %}
+                <a href="{%  url 'default:my_delete' trip_id=trip.id %}">Delete</a>
+                {% endif %}
+            </th>
+        </tr>
+        {% endfor %}
+    </table>
+    <h4>Other User's Travel Plans</h4>
+    <table>
+        <tr>
+            <th>Destination</th>
+            <th>Travel Start Date</th>
+            <th>Travel End Date</th>
+            <th>Do You Want To Join?</th>
+        </tr>
+        {% for trip in other_trips%}
+        <tr>
+            <th><a href="{%  url 'default:my_view' trip_id=trip.id %}">{{trip.destination}}</a></th>
+            <th>{{trip.startDate}}</th>
+            <th>{{trip.endDate}}</th>
+            <th><a href="{%  url 'default:my_join' trip_id=trip.id %}">Join</a></th>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
